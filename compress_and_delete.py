@@ -4,9 +4,14 @@ from datetime import datetime
 import json
 import shutil
 from pushover import Client
+from dotenv import load_dotenv
+load_dotenv()
+
+PUSHOVER_API_TOKEN = os.getenv('PUSHOVER_API_TOKEN')
+PUSHOVER_USER_KEY = os.getenv('PUSHOVER_USER_KEY')
 
 # Initialize Pushover client with your user key and API token
-client = Client("your_user_key_here", api_token="your_api_token_here")
+client = Client(PUSHOVER_USER_KEY, api_token=PUSHOVER_API_TOKEN)
 
 def scan_compress_delete(base_dir, available_path_length):
     try:
