@@ -11,10 +11,7 @@ Python utility to fix max path length issues before migrating a file share to Sh
 
 #### Requirements
 - Python 3.x
-- Install the necessary Python packages with the following command:
-  ```
-  pip install -r requirements.txt
-  ```
+- See step 4 to install necessary Python packages
 
 #### Setup and Usage
 1. Clone the repository:
@@ -25,11 +22,32 @@ Python utility to fix max path length issues before migrating a file share to Sh
    ```
    cd SP-MaxPathLengthFixer
    ```
-3. Run the script with:
+3. Setup a Python virtual environment and activate it:
+   - On Windows:
+   ```
+   python -m venv venv
+   .\venv\Scripts\activate
+   ```
+   - On Linux/Mac:
+   ```
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+4. Install the required packages:
+   ```
+   pip install -r requirements.txt
+   ```
+5. (Optional) Configure Pushover notifications:
+   - Create a `.env` file in the project root directory with the following structure:
+      ```
+      PUSHOVER_API_TOKEN=YourPushoverApiTokenHere
+      PUSHOVER_USER_KEY=YourPushoverUserKeyHere
+      ```
+   - Note: To maintain security, ensure `.env` is your `.gitignore` file to prevent it from being tracked in your Git repository.
+6. Run the script with:
    ```
    python compress_and_delete.py
    ```
-   (Replace "script_name.py" with the actual name of your script file)
    
 #### Notifications
 Configure your Pushover API token and user key in the script to receive notifications upon the completion of pre-scan and main processing stages.
