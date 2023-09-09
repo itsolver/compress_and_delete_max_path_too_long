@@ -3,15 +3,15 @@ import zipfile
 from datetime import datetime
 import json
 import shutil
-from pushover import Client
+from pushover import send_pushover
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
 PUSHOVER_API_TOKEN = os.getenv('PUSHOVER_API_TOKEN')
 PUSHOVER_USER_KEY = os.getenv('PUSHOVER_USER_KEY')
 
-# Initialize Pushover client with your user key and API token
-client = Client(PUSHOVER_USER_KEY, api_token=PUSHOVER_API_TOKEN)
 
 def scan_compress_delete(base_dir, available_path_length):
     try:
@@ -33,7 +33,8 @@ def scan_compress_delete(base_dir, available_path_length):
             json.dump(log_dict, log_file, indent=4)
         
         # Notify user of pre-scan completion
-        client.send_message("Pre-scan completed. Review the log file before proceeding.", title="Pre-scan Completion")
+        prescan_completed_message = "Pre-scan completed. Review the log file for details."
+        send_pushover(prescan_completed_message, PUSHOVER_USER_KEY, PUSHOVER_API_TOKEN)
 
         # Prompt user to proceed with the main process
         input("Press Enter to continue with the main processing...")
@@ -76,7 +77,8 @@ def scan_compress_delete(base_dir, available_path_length):
             json.dump(log_dict, log_file, indent=4)
         
         # Notify user of main processing completion
-        client.send_message("Main processing completed. Review the final log file for details.", title="Main Processing Completion")
+        mainscan_completed_message = "Main processing completed. Review the final log file for details."
+        send_pushover(mainscan_completed_message, PUSHOVER_USER_KEY, PUSHOVER_API_TOKEN)
     except Exception as e:
         print(f"An error occurred: {e}")
 
