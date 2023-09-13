@@ -4,8 +4,10 @@ def send_pushover(text, user, api):
     """Send a message via Pushover."""
     try:
         payload = {"message": text, "user": user, "token": api}
+        print(f"Payload: {payload}")
         r = requests.post('https://api.pushover.net/1/messages.json',
                           data=payload, headers={'User-Agent': 'Python'}, timeout=10)
+        print(f"Response: {r.content}")
         
         # Check if the request was successful
         if r.status_code == 200:
@@ -17,4 +19,3 @@ def send_pushover(text, user, api):
         print(f"An error occurred while sending notification: {e}")
 
     return r
-
